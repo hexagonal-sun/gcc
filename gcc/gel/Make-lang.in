@@ -1,0 +1,78 @@
+# Make-lang.in -- Top level -*- makefile -*- fragment for gcc gel frontend.
+
+# The name for selecting go in LANGUAGES.
+GEL_EXE = gel1(exeext)
+gel: $(GEL_EXE)
+
+.PHONY: gel
+
+gel/gel-lex.c : gel/gel-lex.l
+	-$(FLEX) $(FLEXFLAGS) -o$@ $<
+
+gel/gel-parser.c gel/gel-parser.h: gel/gel-parser.y
+	-$(BISON) $(BISONFLAGS) --defines=gel/gel-parser.h -o$@ $<
+
+
+GEL_OBJS = \
+	gel/gel-parser.o \
+	gel/gel-lex.o \
+	gel/gel-lang.o \
+	attribs.o
+
+GEL_TREE_H_ = gel/gel-tree.h
+
+gel1$(exeext): $(GEL_OBJS) $(BACKEND) $(LIBDEPS)
+	+$(LLINKER) $(ALL_LINKERFLAGS) $(LDFLAGS) -o $@ \
+	      $(GEL_OBJS) $(BACKEND) $(BACKENDLIBS) $(LIBS)
+
+gel/gel-lang.o: gel/gel-lang.c $(CONFIG_H) coretypes.h debug.h		\
+	flags.h $(GGC_H) langhooks.h $(LANGHOOKS_DEF_H) $(SYSTEM_H)	\
+	$(TARGET_H) $(GIMPLE_H) gtype-gel.h gt-gel-gel-lang.h		\
+	$(EXPR_H) $(GEL_TREE_H)
+
+gel/gel-parser.o: $(CONFIG_H) coretypes.h debug.h flags.h $(GGC_H)	\
+	langhooks.h $(LANGHOOKS_DEF_H) $(SYSTEM_H) $(TARGET_H)		\
+	$(GIMPLE_H) $(EXPR_H)
+
+gel/gel-lex.o: gel/gel-lex.c gel/gel-parser.h $(CONFIG_H) $(SYSTEM_H)	\
+	coretypes.h $(OPTS_H) toplev.h $(TREE_H) $(DIAGNOSTIC_CORE_H)	\
+	$(TM_H) $(CGRAPH_H) $(GGC_H) tree-ssa-operands.h		\
+	$(TREE_PASS_H) langhooks.h $(VEC_H) $(BITMAP_H) $(IPA_PROP_H)	\
+	$(COMMON_H) debug.h $(GIMPLE_H)
+
+gel.tags: force
+	cd $(srcdir)/gel; etags -o TAGS.sub *.c *.h; \
+	etags --include TAGS.sub --include ../TAGS.sub
+
+gel.all.cross: $(GEL_EXE)
+gel.start.encap: $(GEL_EXE)
+gel.rest.encap:
+
+gel.install-common:
+gel.install-man:
+gel.install-info:
+gel.dvi:
+gel.pdf:
+gel.install-pdf:
+gel.html:
+gel.install-html:
+gel.uninstall:
+gel.info:
+gel.man:
+gel.srcextra:
+gel.srcman:
+gel.srcinfo:
+gel.install-plugin:
+
+gel.mostlyclean:
+	rm -f $(GEL_OBJS) $(GEL_EXE)
+
+gel.clean:
+gel.distclean:
+gel.maintainer-clean:
+gel.stage1:
+gel.stage2:
+gel.stage3:
+gel.stage4:
+gel.stageprofile:
+gel.stagefeedback:

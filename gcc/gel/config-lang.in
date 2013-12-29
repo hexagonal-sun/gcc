@@ -1,0 +1,12 @@
+# config-lang.in -- Top level configure fragment for gcc gel frontend.
+
+language="gel"
+
+compilers="gel1\$(exeext)"
+
+lang_requires_boot_languages=c
+
+gtfiles="\$(srcdir)/gel/gel-tree.h \$(srcdir)/gel/gel-lang.c"
+
+# Do not build by default.
+build_by_default="no"
