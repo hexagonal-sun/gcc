@@ -49,18 +49,8 @@ yyerror(const char *c)
 
     DECL_CONTEXT (DECL_RESULT (fndecl)) = fndecl;
 
-    rest_of_decl_compilation(fndecl, 1, 0);
 
     current_function_decl = fndecl;
-
-    /*create function rtl for function definition. */
-
-    make_decl_rtl (fndecl);
-
-    /* Generate rtl for the start of a function, fndecl The second and
-     * third parameters denote the file and the line */
-
-    init_function_start (fndecl);
 }
 
 void gel_finish_fn()
