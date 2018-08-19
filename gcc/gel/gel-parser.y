@@ -49,6 +49,7 @@ yyerror(const char *c)
 
     DECL_CONTEXT (DECL_RESULT (fndecl)) = fndecl;
 
+    allocate_struct_function(fndecl, false);
 
     current_function_decl = fndecl;
 }
