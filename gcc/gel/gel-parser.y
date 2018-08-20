@@ -34,7 +34,7 @@ yyerror(const char *c)
 
     fndecl = build_fn_decl(name, fntype);
     tree res_decl = build_decl(input_location, RESULT_DECL,
-			       NULL_TREE, integer_type_node);
+			       NULL_TREE, return_type);
 
     tree myblock = make_node(BLOCK);
     BLOCK_VARS (myblock) = res_decl;
