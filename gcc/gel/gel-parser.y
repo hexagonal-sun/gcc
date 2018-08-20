@@ -164,7 +164,7 @@ stmts: stmt             {gel_add_stmt($1);}
 stmt: exp ';'
 | RETURN exp ';'        {$$ = gel_add_return($2);}
 | type NAME ';'         {$$ = gel_build_decl($1, $2);}
-| id_exp '=' exp ';'    {$$ = build2 (MODIFY_EXPR, integer_type_node, $1, $3);}
+| id_exp '=' exp ';'    {$$ = build2 (MODIFY_EXPR, TREE_TYPE($3), $1, $3);}
 
 id_exp: NAME            {$$ = GEL_ID_DECL(get_identifier($1));};
 
