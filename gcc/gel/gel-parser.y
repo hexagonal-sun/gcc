@@ -127,6 +127,7 @@ build_string_literal(char *string)
 %union{
     tree exp;       //Tree node developed by us.
     int ival;       //Integer value for constants.
+    REAL_VALUE_TYPE rval;
     char *name;     //Name of function or variables.
     vec<tree, va_gc> *exp_list;
     char *string;
@@ -136,6 +137,7 @@ build_string_literal(char *string)
 %type <exp_list> exp_list
 %type <exp> type
 %token <ival> NUM
+%token <rval> REAL
 %token <name> NAME
 %token <string> STRING_LITERAL
 
@@ -153,7 +155,7 @@ accept: TLS
 TLS: fndef fnbody
 
 type: INTEGER           {$$ = integer_type_node;}
-| FLOAT                 {$$ = float_type_node;}
+| FLOAT                 {$$ = float64_type_node;}
 
 fndef: FUNCTION NAME RETURNS type '(' ')'     {gel_enter_into_fn($2, $4);}
 fnbody: '{' stmts '}'   {gel_finish_fn();}
@@ -172,6 +174,7 @@ exp: id_exp
 | NAME '(' exp_list ')' {$$ = gel_build_fn_call($1, $3);}
 | STRING_LITERAL        {$$ = build_string_literal(strlen($1) + 1, $1);}
 | NUM                   {$$ = build_int_cst (integer_type_node, $1);}
+| REAL                  {$$ = build_real(float64_type_node, $1);}
 | exp '+' exp           {$$ = build2 (PLUS_EXPR, TREE_TYPE($1), $1, $3);}
 | exp '-' exp           {$$ = build2 (MINUS_EXPR, TREE_TYPE($1), $1, $3);}
 | exp '*' exp           {$$ = build2 (MULT_EXPR, TREE_TYPE($1), $1, $3);}
