@@ -172,10 +172,10 @@ exp: id_exp
 | NAME '(' exp_list ')' {$$ = gel_build_fn_call($1, $3);}
 | STRING_LITERAL        {$$ = build_string_literal(strlen($1) + 1, $1);}
 | NUM                   {$$ = build_int_cst (integer_type_node, $1);}
-| exp '+' exp           {$$ = build2 (PLUS_EXPR, integer_type_node, $1, $3);}
-| exp '-' exp           {$$ = build2 (MINUS_EXPR, integer_type_node, $1, $3);}
-| exp '*' exp           {$$ = build2 (MULT_EXPR, integer_type_node, $1, $3);}
-| exp '/' exp           {$$ = build2 (TRUNC_DIV_EXPR, integer_type_node, $1, $3);}
+| exp '+' exp           {$$ = build2 (PLUS_EXPR, TREE_TYPE($1), $1, $3);}
+| exp '-' exp           {$$ = build2 (MINUS_EXPR, TREE_TYPE($1), $1, $3);}
+| exp '*' exp           {$$ = build2 (MULT_EXPR, TREE_TYPE($1), $1, $3);}
+| exp '/' exp           {$$ = build2 (TRUNC_DIV_EXPR, TREE_TYPE($1), $1, $3);}
 | '(' exp ')'           {$$ = $2;}
 ;
 
