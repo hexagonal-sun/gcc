@@ -52,7 +52,7 @@ default_globalize_label (FILE *, const char *)
 rtx
 geb_function_value(const_tree ret_type, const_tree fn_decl)
 {
-    return gen_rtx_REG (VOIDmode, 0);
+    return gen_rtx_REG (TYPE_MODE(ret_type), 0);
 }
 
 bool
