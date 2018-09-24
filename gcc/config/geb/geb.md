@@ -14,7 +14,7 @@
   ""
   "push\t%1")
 
-(define_insn "*movsi_mem"
+(define_insn "*strsi"
     [(set (mem:SI (match_operand:SI 0 "register_operand" "r"))
           (match_operand:SI 1 "register_operand" "r"))]
     ""
