@@ -170,6 +170,8 @@ static const enum reg_class regno_to_class[] = {
 #define INDEX_REG_CLASS NO_REGS
 #define REGNO_OK_FOR_INDEX_P(REGNO) 0
 
+void geb_expand_prologue(void);
+
 #define FIXED_REGISTERS				\
     {							\
 	0, 0, 0, 0, 0, 0, 1, 1, 1			\

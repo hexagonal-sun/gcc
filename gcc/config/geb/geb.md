@@ -7,6 +7,15 @@
   "TARGET_ALL"
   "add\t%0,%1,%2"
   [])
+;;  Function Prologue and Epilogue
+(define_expand "prologue"
+  [(const_int 0)]
+  ""
+  {
+    geb_expand_prologue ();
+    DONE;
+  }
+)
 
 (define_insn "*push"
   [(set (match_operand:SI 0 "push_operand" "")

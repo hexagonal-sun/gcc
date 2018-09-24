@@ -85,6 +85,21 @@ geb_do_move(machine_mode mode, rtx dest, rtx src)
     return true;
 }
 
+static void
+geb_emit_push(rtx reg_to_push)
+{
+    rtx x =  gen_rtx_PRE_DEC (Pmode, stack_pointer_rtx);
+    x = gen_rtx_MEM (Pmode, x);
+    emit_move_insn (x, reg_to_push);
+}
+
+void
+geb_expand_prologue(void)
+{
+    geb_emit_push (frame_pointer_rtx);
+    emit_insn(gen_rtx_SET (frame_pointer_rtx, stack_pointer_rtx));
+}
+
 static bool
 geb_legitimate_address_p (machine_mode mode, rtx x, bool strict_p)
 {
