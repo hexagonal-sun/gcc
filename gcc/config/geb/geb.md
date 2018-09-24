@@ -26,6 +26,21 @@
     ""
     "mov\t%0,#%1")
 
+(define_insn "*fp_si_store"
+    [(set (mem:SI (plus:SI (match_operand:SI 0 "fp_reg")
+                  (match_operand:SI 1 "const_int_operand")))
+          (match_operand:SI 2 "register_operand" "r"))]
+    ""
+    "fpstr\t%1,%2")
+
+
+(define_insn "*fp_si_load"
+    [(set (match_operand:SI 0 "register_operand" "=r")
+          (mem:SI (plus:SI (match_operand:SI 1 "fp_reg")
+                  (match_operand:SI 2 "const_int_operand"))))]
+    ""
+    "fpldr\t%0,%2")
+
 (define_expand "movsi"
   [(set (match_operand:SI 0 "nonimmediate_operand" "")
         (match_operand:SI 1 "general_operand" ""))]
