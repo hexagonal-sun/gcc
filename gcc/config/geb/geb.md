@@ -20,6 +20,12 @@
     ""
     "str\t%0,%1")
 
+(define_insn "*ldrsi"
+    [(set (match_operand:SI 1 "register_operand" "=r")
+          (mem:SI (match_operand:SI 0 "register_operand" "r")))]
+    ""
+    "ldr\t%0,%1")
+
 (define_insn "*movsi_imm"
     [(set (match_operand:SI 0 "register_operand" "=r,r")
           (match_operand:SI 1 "immediate_operand" ""))]
