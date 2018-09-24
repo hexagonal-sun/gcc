@@ -32,6 +32,12 @@
     ""
     "mov\t%0,#%1")
 
+(define_insn "*movsi_reg"
+    [(set (match_operand:SI 0 "register_operand" "=r,r")
+          (match_operand:SI 1 "register_operand" ""))]
+    ""
+    "mov\t%0,%1")
+
 (define_insn "*fp_si_store"
     [(set (mem:SI (plus:SI (match_operand:SI 0 "fp_reg")
                   (match_operand:SI 1 "const_int_operand")))
