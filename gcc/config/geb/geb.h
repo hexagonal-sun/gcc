@@ -233,4 +233,7 @@ geb_function_value(const_tree ret_type, const_tree fn_decl);
 bool
 geb_do_move(machine_mode mode, rtx dest, rtx src);
 
+void
+geb_do_conditional_jump (rtx label, rtx cmp, rtx op0, rtx op1);
+
 #endif /* GCC_GEB_H */

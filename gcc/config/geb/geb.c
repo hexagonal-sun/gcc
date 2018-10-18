@@ -120,6 +120,18 @@ geb_print_operand (FILE *file, rtx op, int letter)
 
   switch (code)
       {
+      case GT:
+	  fputs("gt", file);
+	  break;
+      case LT:
+	  fputs("lt", file);
+	  break;
+      case LE:
+	  fputs("le", file);
+	  break;
+      case NE:
+	  fputs("ne", file);
+	  break;
       case REG:
 	  fputs(reg_names[REGNO (op)], file);
 	  break;
@@ -136,6 +148,26 @@ geb_print_operand (FILE *file, rtx op, int letter)
   print_rtl(stdout, op);
   printf("\n");
 }
+
+static rtx
+geb_emit_int_compare(rtx op0, rtx op1)
+{
+    rtx x = gen_rtx_COMPARE (SImode, op0, op1);
+    rtx dest = gen_reg_rtx (SImode);
+    emit_insn( gen_rtx_SET (dest, x));
+
+    return dest;
+}
+
+void
+geb_do_conditional_jump (rtx target_label, rtx cmp,
+			 rtx op0, rtx op1)
+{
+    rtx ccreg = geb_emit_int_compare(op0, op1);
+
+    emit_jump_insn (gen_condjump (cmp, target_label));
+}
+
 
 #undef TARGET_PRINT_OPERAND
 #define TARGET_PRINT_OPERAND geb_print_operand

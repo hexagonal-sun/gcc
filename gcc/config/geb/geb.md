@@ -29,6 +29,46 @@
   ""
   "jmp\t%l0")
 
+(define_insn "*cbranch_internal"
+  [(set (pc)
+	(if_then_else
+	 (match_operator 1 "order_operator"
+			 [(match_operand:SI 2 "register_operand" "r")
+			  (match_operand:SI 3 "const_int_operand" "r")])
+	 (label_ref (match_operand 0 "" ""))
+	 (pc)))]
+  ""
+  "b%C1\t%2,%3,%0")
+
+(define_insn "cmpimmsi"
+    [(set (match_operand:SI 0 "register_operand" "=r")
+          (compare:SI
+           (match_operand:SI 1 "register_operand" "r")
+           (match_operand:SI 2 "const_int_operand" "")))]
+    ""
+    "cmp\t%1,#%2")
+
+(define_expand "condjump"
+  [(set (pc)
+	(if_then_else (match_operand 0)
+		      (label_ref (match_operand 1))
+		      (pc)))])
+
+(define_expand "cbranchsi4"
+  [(set (pc) (if_then_else
+	      (match_operator 0 "comparison_operator"
+	       [(match_operand:SI 1 "register_operand" "")
+	        (match_operand:SI 2 "nonmemory_operand" "")])
+	      (label_ref (match_operand 3 "" ""))
+	      (pc)))]
+  ""
+  {
+      geb_do_conditional_jump(operands[3], operands[0],
+                              operands[1], operands[2]);
+      DONE;
+  }
+)
+
 (define_insn "*strsi"
     [(set (mem:SI (match_operand:SI 0 "register_operand" "r"))
           (match_operand:SI 1 "register_operand" "r"))]
