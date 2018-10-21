@@ -78,6 +78,8 @@ typedef struct {
 
 #define TARGET_ALL 1
 
+#define FUNCTION_VALUE_REGNO_P(REGNO) ((REGNO) == 0)
+
 #define STRICT_ALIGNMENT 0
 #define BITS_BIG_ENDIAN 0
 #define BYTES_BIG_ENDIAN 0
