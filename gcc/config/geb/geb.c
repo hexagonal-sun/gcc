@@ -188,4 +188,26 @@ geb_print_operand_address (FILE *file, machine_mode mode ATTRIBUTE_UNUSED,
 #undef TARGET_PRINT_OPERAND_ADDRESS
 #define TARGET_PRINT_OPERAND_ADDRESS geb_print_operand_address
 
+static void
+geb_function_arg_advance (cumulative_args_t ca_v,
+			  machine_mode mode ATTRIBUTE_UNUSED,
+			  const_tree type ATTRIBUTE_UNUSED,
+			  bool named ATTRIBUTE_UNUSED)
+{
+  CUMULATIVE_ARGS *ca = get_cumulative_args (ca_v);
+}
+#undef TARGET_FUNCTION_ARG_ADVANCE
+#define TARGET_FUNCTION_ARG_ADVANCE geb_function_arg_advance
+
+static rtx
+geb_function_arg (cumulative_args_t ca_v,
+		  machine_mode mode ATTRIBUTE_UNUSED,
+		  const_tree type ATTRIBUTE_UNUSED,
+		  bool named ATTRIBUTE_UNUSED)
+{
+    return 0;
+}
+#undef TARGET_FUNCTION_ARG
+#define TARGET_FUNCTION_ARG geb_function_arg
+
 struct gcc_target targetm = TARGET_INITIALIZER;
