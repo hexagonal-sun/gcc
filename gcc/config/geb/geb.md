@@ -7,6 +7,15 @@
   "TARGET_ALL"
   "add\t%0,%1,%2"
   [])
+
+(define_insn "mulsi3"
+  [(set (match_operand:SI          0 "register_operand" "=r,r")
+	(mult:SI (match_operand:SI 1 "register_operand" " r,r")
+		 (match_operand:SI 2 "arith_operand"    " r,r")))]
+  "TARGET_ALL"
+  "mul\t%0,%1,%2"
+  [])
+
 ;;  Function Prologue and Epilogue
 (define_expand "prologue"
   [(const_int 0)]
