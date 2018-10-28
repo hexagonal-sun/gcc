@@ -23,6 +23,25 @@
   ""
   "push\t%1")
 
+(define_expand "call_value"
+  [(parallel [(set (match_operand 0 "")
+		   (call (match_operand 1 "")
+			 (match_operand 2 "")))
+	      (use (match_operand 3 ""))])]		;; next_arg_reg
+  ""
+{
+  geb_do_call_value(operands[0], operands[1], operands[2],
+                    operands[3]);
+  DONE;
+})
+
+(define_insn "call_value_internal"
+  [(set (match_operand 0 "" "")
+	(call (mem:SI (match_operand 1 "call_insn_operand" ""))
+	      (match_operand 2 "" "")))]
+  ""
+  "call\t%1")
+
 (define_insn "jump"
   [(set (pc)
 	(label_ref (match_operand 0 "" "")))]

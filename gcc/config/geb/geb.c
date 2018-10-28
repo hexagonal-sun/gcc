@@ -163,6 +163,17 @@ geb_emit_int_compare(rtx op0, rtx op1)
 }
 
 void
+geb_do_call_value (rtx return_target, rtx func,
+			 rtx op2, rtx op3)
+{
+    if ( GET_CODE (func) == MEM )
+	func = XEXP (func, 0);
+
+    emit_call_insn( gen_call_value_internal(return_target, func, op2));
+}
+
+
+void
 geb_do_conditional_jump (rtx target_label, rtx cmp,
 			 rtx op0, rtx op1)
 {
