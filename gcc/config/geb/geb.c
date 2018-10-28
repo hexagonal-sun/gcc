@@ -132,6 +132,9 @@ geb_print_operand (FILE *file, rtx op, int letter)
       case NE:
 	  fputs("ne", file);
 	  break;
+      case EQ:
+	  fputs("eq", file);
+	  break;
       case REG:
 	  fputs(reg_names[REGNO (op)], file);
 	  break;
